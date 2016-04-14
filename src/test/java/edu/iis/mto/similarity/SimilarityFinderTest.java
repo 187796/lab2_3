@@ -31,5 +31,12 @@ public class SimilarityFinderTest {
 		seq1 = new int[] {1,2};
 		seq2 = new int[] {1,2};
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2),closeTo(1,delta));
-	}	
+	}
+	
+	@Test
+	public void sequencesAreDiffrentAndMethodShouldReturn0(){
+		seq1 = new int[] {1,3,5};
+		seq2 = new int[] {0,2,4};
+		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2),closeTo(0,delta));
+	}
 }
