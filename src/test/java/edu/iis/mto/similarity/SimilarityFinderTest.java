@@ -1,10 +1,12 @@
 package edu.iis.mto.similarity;
 
-import static org.junit.Assert.*;
-
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
+
+import edu.iis.mto.search.SequenceSearcher;
 
 
 public class SimilarityFinderTest {
@@ -39,4 +41,16 @@ public class SimilarityFinderTest {
 		seq2 = new int[] {0,2,4};
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2),closeTo(0,delta));
 	}
+	
+	@Test
+	public void sequencesAreEmptyAndCalculateJackardSimilarityMethodShouldNotBeCalled(){
+		SequenceSearcher searcher2 = mock(SequenceSearcher.class);
+		similarityFinder = new SimilarityFinder(searcher2);
+		seq1 = new int[0];
+		seq2 = new int[0];
+		
+		similarityFinder.calculateJackardSimilarity(seq1, seq2);
+		verify(searcher2, never()).search(0,seq1);
+	}
+	
 }
